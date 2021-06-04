@@ -1,4 +1,4 @@
-package lu.uni.exercises.jakarta.xml;
+package lu.uni.exercises.jakarta.xml.xmlComponents;
 
 
 import jakarta.xml.bind.annotation.XmlAccessType;

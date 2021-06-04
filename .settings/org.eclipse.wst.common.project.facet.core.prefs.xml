@@ -14,4 +14,9 @@
       <attribute name="provider-id" value="jaxrs-no-op-library-provider"/>
     </node>
   </facet>
+  <facet id="jpt.jaxb">
+    <node name="classgen">
+      <attribute name="package" value="lu.uni.exercises.jakarta"/>
+    </node>
+  </facet>
 </root>

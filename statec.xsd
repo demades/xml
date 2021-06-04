@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="CubeView">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Data">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Headers">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Slicer">
+                      <xs:complexType>
+                        <xs:simpleContent>
+                          <xs:extension base="xs:string">
+                            <xs:attribute type="xs:byte" name="dimCount"/>
+                          </xs:extension>
+                        </xs:simpleContent>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="ColHeader">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="ColDim">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element type="xs:string" name="DimLabel"/>
+                                <xs:element name="ColLabels">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="ColLabel" maxOccurs="unbounded" minOccurs="0">
+                                        <xs:complexType>
+                                          <xs:simpleContent>
+                                            <xs:extension base="xs:string">
+                                              <xs:attribute type="xs:byte" name="col" use="optional"/>
+                                              <xs:attribute type="xs:byte" name="member" use="optional"/>
+                                              <xs:attribute type="xs:string" name="id" use="optional"/>
+                                              <xs:attribute type="xs:string" name="isParent" use="optional"/>
+                                              <xs:attribute type="xs:string" name="isChild" use="optional"/>
+                                              <xs:attribute type="xs:string" name="hasNotes" use="optional"/>
+                                              <xs:attribute type="xs:byte" name="handle" use="optional"/>
+                                            </xs:extension>
+                                          </xs:simpleContent>
+                                        </xs:complexType>
+                                      </xs:element>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                              <xs:attribute type="xs:byte" name="position"/>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                        <xs:attribute type="xs:byte" name="coldimcount"/>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element name="RowHeader">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="RowDim">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element type="xs:string" name="DimLabel"/>
+                              </xs:sequence>
+                              <xs:attribute type="xs:byte" name="position"/>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                        <xs:attribute type="xs:byte" name="rowdimcount"/>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute type="xs:byte" name="rowspan"/>
+                  <xs:attribute type="xs:byte" name="colspan"/>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="Rows">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Row" maxOccurs="unbounded" minOccurs="0">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="RowLabels">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="RowLabel">
+                                  <xs:complexType>
+                                    <xs:simpleContent>
+                                      <xs:extension base="xs:string">
+                                        <xs:attribute type="xs:short" name="member" use="optional"/>
+                                        <xs:attribute type="xs:string" name="id" use="optional"/>
+                                        <xs:attribute type="xs:string" name="isParent" use="optional"/>
+                                        <xs:attribute type="xs:string" name="isChild" use="optional"/>
+                                        <xs:attribute type="xs:short" name="handle" use="optional"/>
+                                      </xs:extension>
+                                    </xs:simpleContent>
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="Cells">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="C" maxOccurs="unbounded" minOccurs="0">
+                                  <xs:complexType>
+                                    <xs:simpleContent>
+                                      <xs:extension base="xs:string">
+                                        <xs:attribute type="xs:string" name="headers" use="optional"/>
+                                        <xs:attribute type="xs:string" name="f" use="optional"/>
+                                        <xs:attribute type="xs:float" name="v" use="optional"/>
+                                      </xs:extension>
+                                    </xs:simpleContent>
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute type="xs:short" name="rows"/>
+            <xs:attribute type="xs:byte" name="cols"/>
+            <xs:attribute type="xs:byte" name="rowPos"/>
+            <xs:attribute type="xs:byte" name="colPos"/>
+            <xs:attribute type="xs:short" name="rowspan"/>
+            <xs:attribute type="xs:byte" name="colspan"/>
+            <xs:attribute type="xs:byte" name="d"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element type="xs:string" name="CubeNotes"/>
+        <xs:element name="MemberNotes">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Notes" maxOccurs="unbounded" minOccurs="0">
+                <xs:complexType>
+                  <xs:simpleContent>
+                    <xs:extension base="xs:string">
+                      <xs:attribute type="xs:byte" name="dim" use="optional"/>
+                      <xs:attribute type="xs:byte" name="member" use="optional"/>
+                    </xs:extension>
+                  </xs:simpleContent>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element type="xs:string" name="SourceInfo"/>
+        <xs:element type="xs:string" name="ReportTitle"/>
+        <xs:element type="xs:string" name="Category"/>
+        <xs:element type="xs:string" name="script"/>
+      </xs:sequence>
+      <xs:attribute type="xs:string" name="lang"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
