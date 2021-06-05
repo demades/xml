@@ -4,21 +4,64 @@ import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
 
-@XmlAccessorType (XmlAccessType.FIELD)
-public class C {
+@XmlRootElement(name="Cells")
+@XmlAccessorType(XmlAccessType.FIELD)
+public class C
+{
+    private String headers;
+
+    private String f;
 
     @XmlAttribute(name="v")
     private String v;
 
-	public String getV() {
-		return v;
-	}
+    private String content;
 
-	public void setV(String v) {
-		this.v = v;
-	}
+    public String getHeaders ()
+    {
+        return headers;
+    }
 
+    public void setHeaders (String headers)
+    {
+        this.headers = headers;
+    }
 
+    public String getF ()
+    {
+        return f;
+    }
 
+    public void setF (String f)
+    {
+        this.f = f;
+    }
+
+    public String getV ()
+    {
+        return v;
+    }
+
+    public void setV (String v)
+    {
+        this.v = v;
+    }
+
+    public String getContent ()
+    {
+        return content;
+    }
+
+    public void setContent (String content)
+    {
+        this.content = content;
+    }
+
+    @Override
+    public String toString()
+    {
+        return "ClassPojo [headers = "+headers+", f = "+f+", v = "+v+", content = "+content+"]";
+    }
 }

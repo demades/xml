@@ -7,24 +7,97 @@ import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name = "Data")
-@XmlAccessorType (XmlAccessType.FIELD)
+public class Data
+{
+    private String colspan;
 
-public class Data {
+    private String rowPos;
 
-	@XmlElement(name = "Rows")
-	private Rows rows;
+    private String d;
 
-	public Rows getRows() {
-		return rows;
+    private String rowspan;
+
+    private String colPos;
+
+    private String cols;
+
+    @XmlElement(name="Rows")
+    private Rows Rows;
+
+    public String getColspan ()
+    {
+        return colspan;
+    }
+
+    public void setColspan (String colspan)
+    {
+        this.colspan = colspan;
+    }
+
+    public String getRowPos ()
+    {
+        return rowPos;
+    }
+
+    public void setRowPos (String rowPos)
+    {
+        this.rowPos = rowPos;
+    }
+
+    public String getD ()
+    {
+        return d;
+    }
+
+    public void setD (String d)
+    {
+        this.d = d;
+    }
+    
+    
+
+    public Rows getRows() {
+		return Rows;
 	}
 
-	public void setRows(Rows rows) {
-		this.rows = rows;
-	}
+	public String getRowspan ()
+    {
+        return rowspan;
+    }
 
+    public void setRowspan (String rowspan)
+    {
+        this.rowspan = rowspan;
+    }
 
-	
-	
-	
+    public String getColPos ()
+    {
+        return colPos;
+    }
+
+    public void setColPos (String colPos)
+    {
+        this.colPos = colPos;
+    }
+
+    public String getCols ()
+    {
+        return cols;
+    }
+
+    public void setCols (String cols)
+    {
+        this.cols = cols;
+    }
+
+    public void setRows (Rows Rows)
+    {
+        this.Rows = Rows;
+    }
+
+    @Override
+    public String toString()
+    {
+        return "ClassPojo [colspan = "+colspan+", rowPos = "+rowPos+", d = "+d+", rowspan = "+rowspan+", colPos = "+colPos+", cols = "+cols+", Rows = "+Rows+"]";
+    }
 }

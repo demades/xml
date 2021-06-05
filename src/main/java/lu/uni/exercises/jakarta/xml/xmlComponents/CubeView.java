@@ -9,18 +9,99 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "CubeView")
 @XmlAccessorType (XmlAccessType.FIELD)
-public class CubeView {
-	
-	
-	@XmlElement(name = "Data")
-	private Data data = null;
+public class CubeView
+{
 
-	public Data getData() {
-		return data;
-	}
+    private String CubeNotes;
 
-	public void setData(Data data) {
-		this.data = data;
-	}
+    private String ReportTitle;
+
+    private String Category;
+
+    private String SourceInfo;
+
+    @XmlElement(name = "Data")
+    private Data Data;
+
+    private String lang;
+
+    private String script;
+
+
+    public String getCubeNotes ()
+    {
+        return CubeNotes;
+    }
+
+    public void setCubeNotes (String CubeNotes)
+    {
+        this.CubeNotes = CubeNotes;
+    }
+
+    public String getReportTitle ()
+    {
+        return ReportTitle;
+    }
+
+    public void setReportTitle (String ReportTitle)
+    {
+        this.ReportTitle = ReportTitle;
+    }
+
+    public String getCategory ()
+    {
+        return Category;
+    }
+
+    public void setCategory (String Category)
+    {
+        this.Category = Category;
+    }
+
+    public String getSourceInfo ()
+    {
+        return SourceInfo;
+    }
+
+    public void setSourceInfo (String SourceInfo)
+    {
+        this.SourceInfo = SourceInfo;
+    }
+
+    public Data getData ()
+    {
+        return Data;
+    }
+
+    public void setData (Data Data)
+    {
+        this.Data = Data;
+    }
+
+    public String getLang ()
+    {
+        return lang;
+    }
+
+    public void setLang (String lang)
+    {
+        this.lang = lang;
+    }
+
+    public String getScript ()
+    {
+        return script;
+    }
+
+    public void setScript (String script)
+    {
+        this.script = script;
+    }
+
+    @Override
+    public String toString()
+    {
+        return "ClassPojo [CubeNotes = "+CubeNotes+", ReportTitle = "+ReportTitle+", Category = "+Category+", SourceInfo = "+SourceInfo+", Data = "+Data+", lang = "+lang+", script = "+script+"]";
+    }
 
 }

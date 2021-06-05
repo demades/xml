@@ -6,20 +6,24 @@ import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
 
-@XmlAccessorType (XmlAccessType.FIELD)
-public class Rows {
-	
+public class Rows
+{
 	@XmlElement(name="Row")
-	private List<Row> row = null;
+    private Row[] Row;
 
-	public List<Row> getRow() {
-		return row;
-	}
+    public Row[] getRow ()
+    {
+        return Row;
+    }
 
-	public void setRow(List<Row> row) {
-		this.row = row;
-	}
-	
-	
+    public void setRow (Row[] Row)
+    {
+        this.Row = Row;
+    }
 
+    @Override
+    public String toString()
+    {
+        return "ClassPojo [Row = "+Row+"]";
+    }
 }

@@ -34,8 +34,18 @@ public class XmlBean  {
 	private URL url;
 	private String output;
 	private JAXBContext jaxbContext;
-	private JSONDocument doc;
+	private Jsonb doc;
 	private CubeView cubeView;
+	
+	public Jsonb getDoc() {
+		return doc;
+	}
+
+	public void setDoc(Jsonb doc) {
+		this.doc = doc;
+	}
+
+
 
 
 	public void jaxbXmlFileToObject() throws JAXBException, MalformedURLException  {
@@ -45,19 +55,20 @@ public class XmlBean  {
 		jaxbContext = JAXBContext.newInstance(CubeView.class);
 		Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 		cubeView = (CubeView) jaxbUnmarshaller.unmarshal(xmlFile);
-		ejbProcess.myTest(cubeView);
-		System.out.println(output);
+		doc = ejbProcess.CreateJsonFromXml(cubeView);
+		System.out.println(doc.toString());
+
 	}
 	
-	public void createJSONdoc() {
-		List<JSONDocument> docs = new ArrayList();
-		doc = new JSONDocument();
-		docs.add(doc);
-		Jsonb jsonb = JsonbBuilder.create();
-		String result = jsonb.toJson(doc);
-		System.out.println(result);
-		ejbProcess.myTest(cubeView);
-	}
+//	public void createJSONdoc() {
+//		List<JSONDocument> docs = new ArrayList();
+//		doc = new JSONDocument();
+//		docs.add(doc);
+//		Jsonb jsonb = JsonbBuilder.create();
+//		String result = jsonb.toJson(doc);
+//		System.out.println(result);
+//		ejbProcess.myTest(cubeView);
+//	}
 	
 
 }

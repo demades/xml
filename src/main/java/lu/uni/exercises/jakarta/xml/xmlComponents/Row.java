@@ -8,35 +8,37 @@ import jakarta.xml.bind.annotation.XmlAnyElement;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlMixed;
 
-@XmlAccessorType (XmlAccessType.FIELD)
-public class Row {
-	
-  
-	@XmlElement(name="Cells")
-	private Cells cells = null;
-	
+public class Row
+{
 	@XmlElement(name="RowLabels")
-	private RowLabels rowLabels = null;
+    private RowLabels RowLabels;
 
-	public Cells getCells() {
-		return cells;
-	}
+	@XmlElement(name="Cells")
+    private Cells Cells;
 
-	public void setCells(Cells cells) {
-		this.cells = cells;
-	}
+    public RowLabels getRowLabels ()
+    {
+        return RowLabels;
+    }
 
-	public RowLabels getRowLabels() {
-		return rowLabels;
-	}
+    public void setRowLabels (RowLabels RowLabels)
+    {
+        this.RowLabels = RowLabels;
+    }
 
-	public void setRowLabels(RowLabels rowLabels) {
-		this.rowLabels = rowLabels;
-	}
+    public Cells getCells ()
+    {
+        return Cells;
+    }
 
+    public void setCells (Cells Cells)
+    {
+        this.Cells = Cells;
+    }
 
-
-	
-	
-
+    @Override
+    public String toString()
+    {
+        return "ClassPojo [RowLabels = "+RowLabels+", Cells = "+Cells+"]";
+    }
 }

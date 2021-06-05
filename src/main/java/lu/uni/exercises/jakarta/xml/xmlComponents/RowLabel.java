@@ -10,19 +10,23 @@ import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlMixed;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
-
-public class RowLabel {
-		
+@XmlRootElement(name="RowLabels")
+@XmlAccessorType(XmlAccessType.FIELD)
+public class RowLabel
+{
     private String isParent;
 
+    @XmlAttribute(name="member")
     private String member;
 
     private String handle;
 
+    @XmlAttribute(name="id")
     private String id;
 
     private String isChild;
 
+    @XmlAttribute(name="content")
     private String content;
 
     public String getIsParent ()

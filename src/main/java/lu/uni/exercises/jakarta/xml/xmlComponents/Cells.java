@@ -6,19 +6,24 @@ import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
 
-@XmlAccessorType (XmlAccessType.FIELD)
-public class Cells {
+public class Cells
+{
 	@XmlElement(name="C")
-	private List<C> c = null;
+    private C[] C;
 
-	public List<C> getC() {
-		return c;
-	}
+    public C[] getC ()
+    {
+        return C;
+    }
 
-	public void setC(List<C> c) {
-		this.c = c;
-	}
-	
-	
+    public void setC (C[] C)
+    {
+        this.C = C;
+    }
 
+    @Override
+    public String toString()
+    {
+        return "ClassPojo [C = "+C+"]";
+    }
 }

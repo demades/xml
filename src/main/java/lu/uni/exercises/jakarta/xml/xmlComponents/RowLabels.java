@@ -5,8 +5,9 @@ import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
 import lu.uni.exercises.jakarta.pojo.RowLabel;
 
-public class RowLabels {
-	
+public class RowLabels
+{
+	@XmlElement(name="RowLabel")
     private RowLabel RowLabel;
 
     public RowLabel getRowLabel ()
@@ -24,5 +25,5 @@ public class RowLabels {
     {
         return "ClassPojo [RowLabel = "+RowLabel+"]";
     }
-	
 }
+	
