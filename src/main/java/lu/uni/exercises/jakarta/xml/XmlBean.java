@@ -1,9 +1,12 @@
 package lu.uni.exercises.jakarta.xml;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -11,6 +14,10 @@ import javax.faces.bean.ManagedBean;
 import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
 import javax.print.attribute.standard.OutputDeviceAssigned;
+import javax.ws.rs.core.MediaType;
+
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
@@ -32,21 +39,35 @@ public class XmlBean  {
 	private String fileName = "statec.xml";
 //	private String Urlpath = "https://statistiques.public.lu/stat/TableViewer/download.aspx?x=";
 	private URL url;
-	private String output;
 	private JAXBContext jaxbContext;
-	private Jsonb doc;
+	private String doc;
 	private CubeView cubeView;
-	
-	public Jsonb getDoc() {
+	private StreamedContent file;
+	private int[] years;
+
+	public StreamedContent getFile() {
+		return file;
+	}
+
+	public void setFile(StreamedContent file) {
+		this.file = file;
+	}
+
+	public String getDoc() {
 		return doc;
 	}
 
-	public void setDoc(Jsonb doc) {
+	public void setDoc(String doc) {
 		this.doc = doc;
 	}
 
+	public int[] getYears() {
+		return years;
+	}
 
-
+	public void setYears(int[] years) {
+		this.years = years;
+	}
 
 	public void jaxbXmlFileToObject() throws JAXBException, MalformedURLException  {
 //		url = new URL(Urlpath);
@@ -56,19 +77,24 @@ public class XmlBean  {
 		Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 		cubeView = (CubeView) jaxbUnmarshaller.unmarshal(xmlFile);
 		doc = ejbProcess.CreateJsonFromXml(cubeView);
-		System.out.println(doc.toString());
-
 	}
 	
-//	public void createJSONdoc() {
-//		List<JSONDocument> docs = new ArrayList();
-//		doc = new JSONDocument();
-//		docs.add(doc);
-//		Jsonb jsonb = JsonbBuilder.create();
-//		String result = jsonb.toJson(doc);
-//		System.out.println(result);
-//		ejbProcess.myTest(cubeView);
-//	}
+	public void downloadFile() {
+    	InputStream stream = new ByteArrayInputStream(doc.getBytes()); 
+        file = new DefaultStreamedContent(stream,
+                MediaType.APPLICATION_JSON,
+                "statec.json");         
+	}
 	
-
+	public void getyears() {
+		int year = Calendar.getInstance().get(Calendar.YEAR);
+		years = new int[year - 1994];
+		int v = 0;
+		for (int i=year; i>1994; i--) {
+			years[v] = i;
+			v++;
+		}
+		
+	}
+	
 }

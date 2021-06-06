@@ -2,28 +2,27 @@ package lu.uni.exercises.jakarta.xml.xmlComponents;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElement;
-import lu.uni.exercises.jakarta.pojo.RowLabel;
+import jakarta.xml.bind.annotation.XmlType;
 
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "", propOrder = {
+    "rowLabel"
+})
 public class RowLabels
 {
-	@XmlElement(name="RowLabel")
-    private RowLabel RowLabel;
+	@XmlElement(name="RowLabel", required = true)
+    protected RowLabel rowLabel;
 
-    public RowLabel getRowLabel ()
-    {
-        return RowLabel;
-    }
+	public RowLabel getRowLabel() {
+		return rowLabel;
+	}
 
-    public void setRowLabel (RowLabel RowLabel)
-    {
-        this.RowLabel = RowLabel;
-    }
+	public void setRowLabel(RowLabel rowLabel) {
+		this.rowLabel = rowLabel;
+	}
 
-    @Override
-    public String toString()
-    {
-        return "ClassPojo [RowLabel = "+RowLabel+"]";
-    }
+
 }
 	

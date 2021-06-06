@@ -1,12 +1,18 @@
 package lu.uni.exercises.jakarta.xml;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
-import javax.json.bind.Jsonb;
-import javax.json.bind.JsonbBuilder;
+import javax.ws.rs.core.MediaType;
+
+import org.primefaces.model.DefaultStreamedContent;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import lu.uni.exercises.jakarta.xml.xmlComponents.C;
 import lu.uni.exercises.jakarta.xml.xmlComponents.Cells;
@@ -28,6 +34,7 @@ public class EJBProcess implements EJBProcessLocal {
 	Rows rows;
 	JSONDocument entry;
 	List<JSONDocument> doc;
+	Gson gson;
 	Row[] rowList;
 	Cells cells;
 	List<C> cList;
@@ -35,7 +42,8 @@ public class EJBProcess implements EJBProcessLocal {
 	RowLabels rowLabels;
 	RowLabel rowLabel;
 	C c;
-	Jsonb jdoc;
+	String result;
+//	Jsonb jdoc;
 	
 
     /**
@@ -45,13 +53,14 @@ public class EJBProcess implements EJBProcessLocal {
         // TODO Auto-generated constructor stub
     }
     
-    public Jsonb CreateJsonFromXml(CubeView cubeView) {
-    	jdoc = JsonbBuilder.create();
+    public String CreateJsonFromXml(CubeView cubeView) {
+    	doc = new ArrayList();
+    	gson = new GsonBuilder().setPrettyPrinting().create();
     	rowList = cubeView.getData().getRows().getRow();
-    //	doc = new ArrayList();
     	
     	for (int i=0; i<rowList.length; i++) {
     		entry = new JSONDocument();
+    		entry.setYear(rowList[1].getRowLabels().getRowLabel().getValue());
     		entry.setResidentBorderes(rowList[i].getCells().getC()[0].getV());
     		entry.setNonResidentBorderes(rowList[i].getCells().getC()[1].getV());
     		entry.setNationalWageEarners(rowList[i].getCells().getC()[2].getV());
@@ -62,9 +71,10 @@ public class EJBProcess implements EJBProcessLocal {
     		entry.setDomesticEmployment(rowList[i].getCells().getC()[7].getV());
     		entry.setNumberUnemployed(rowList[i].getCells().getC()[8].getV());
     		entry.setActivePopulation(rowList[i].getCells().getC()[9].getV()); 
-    		String result = jdoc.toJson(entry);
-    	}
-    	return jdoc;
+    		doc.add(entry);
+    		result = gson.toJson(doc);
+    	}	
+    	return result;
     }
 
 }

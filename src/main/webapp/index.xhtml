@@ -2,15 +2,28 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"> 
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
 
 <h:head>
 <f:metadata>
-    <f:viewParam name="void" value="#{xmlBean.doc}" />
-    <f:event type="preRenderView" listener="#{xmlBean.jaxbXmlFileToObject}" />
+    <f:viewParam name="void" value="#{xmlBean.years}" />
+    <f:event type="preRenderView" listener="#{xmlBean.getyears}" />
 </f:metadata>
 </h:head> 
 <body> 
-Hi there!
+<h2>Choose the year/s you want to visualize</h2>
+<h:form>
+    <p:selectManyMenu id="inputYears" style="width:150px">
+        <f:selectItem itemLabel="Select Years" itemValue="" noSelectionOption="true"/>
+        <f:selectItems value="#{xmlBean.years}"/>
+    </p:selectManyMenu>
+	<p:commandButton value="Download" ajax="false" action="#{xmlBean.downloadFile}">
+		<p:fileDownload value="#{xmlBean.file}"></p:fileDownload>
+	</p:commandButton>
+	<p:commandButton value="Display online" action="#{xmlBean.jaxbXmlFileToObject}" />
+	
+<!--  	<h:outputText value="#{xmlBean.doc}" /> -->
+</h:form>
 </body> 
 </html>
