@@ -4,16 +4,11 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.ws.rs.core.MediaType;
-
-import org.primefaces.model.DefaultStreamedContent;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
 import lu.uni.exercises.jakarta.xml.xmlComponents.C;
 import lu.uni.exercises.jakarta.xml.xmlComponents.Cells;
 import lu.uni.exercises.jakarta.xml.xmlComponents.CubeView;
@@ -43,7 +38,6 @@ public class EJBProcess implements EJBProcessLocal {
 	RowLabel rowLabel;
 	C c;
 	String result;
-//	Jsonb jdoc;
 	
 
     /**
@@ -53,27 +47,31 @@ public class EJBProcess implements EJBProcessLocal {
         // TODO Auto-generated constructor stub
     }
     
-    public String CreateJsonFromXml(CubeView cubeView) {
+    public String CreateJsonFromXml(CubeView cubeView, List<String> inputYears) {
     	doc = new ArrayList();
     	gson = new GsonBuilder().setPrettyPrinting().create();
     	rowList = cubeView.getData().getRows().getRow();
     	
     	for (int i=0; i<rowList.length; i++) {
-    		entry = new JSONDocument();
-    		entry.setYear(rowList[1].getRowLabels().getRowLabel().getValue());
-    		entry.setResidentBorderes(rowList[i].getCells().getC()[0].getV());
-    		entry.setNonResidentBorderes(rowList[i].getCells().getC()[1].getV());
-    		entry.setNationalWageEarners(rowList[i].getCells().getC()[2].getV());
-    		entry.setDomesticWageEarners(rowList[i].getCells().getC()[3].getV());
-    		entry.setNationalSeflEmployment(rowList[i].getCells().getC()[4].getV());
-    		entry.setDomesticSelfEmployment(rowList[i].getCells().getC()[5].getV());
-    		entry.setNationalEmployment(rowList[i].getCells().getC()[6].getV());
-    		entry.setDomesticEmployment(rowList[i].getCells().getC()[7].getV());
-    		entry.setNumberUnemployed(rowList[i].getCells().getC()[8].getV());
-    		entry.setActivePopulation(rowList[i].getCells().getC()[9].getV()); 
-    		doc.add(entry);
-    		result = gson.toJson(doc);
+    		for (int j=0; j<inputYears.size(); j++) {
+    			if (rowList[i].getRowLabels().getRowLabel().getValue().contains(inputYears.get(j))) {
+    	    		entry = new JSONDocument();
+    	    		entry.setYear(rowList[i].getRowLabels().getRowLabel().getValue());
+    	    		entry.setResidentBorderes(rowList[i].getCells().getC()[0].getV());
+    	    		entry.setNonResidentBorderes(rowList[i].getCells().getC()[1].getV());
+    	    		entry.setNationalWageEarners(rowList[i].getCells().getC()[2].getV());
+    	    		entry.setDomesticWageEarners(rowList[i].getCells().getC()[3].getV());
+    	    		entry.setNationalSeflEmployment(rowList[i].getCells().getC()[4].getV());
+    	    		entry.setDomesticSelfEmployment(rowList[i].getCells().getC()[5].getV());
+    	    		entry.setNationalEmployment(rowList[i].getCells().getC()[6].getV());
+    	    		entry.setDomesticEmployment(rowList[i].getCells().getC()[7].getV());
+    	    		entry.setNumberUnemployed(rowList[i].getCells().getC()[8].getV());
+    	    		entry.setActivePopulation(rowList[i].getCells().getC()[9].getV()); 
+    	    		doc.add(entry);
+    			}
+    		}    		
     	}	
+    	result = gson.toJson(doc);
     	return result;
     }
 

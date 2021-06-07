@@ -6,24 +6,19 @@
       xmlns:p="http://primefaces.org/ui"> 
 
 <h:head>
-<f:metadata>
-    <f:viewParam name="void" value="#{xmlBean.years}" />
-    <f:event type="preRenderView" listener="#{xmlBean.getyears}" />
-</f:metadata>
 </h:head> 
 <body> 
 <h2>Choose the year/s you want to visualize</h2>
-<h:form>
-    <p:selectManyMenu id="inputYears" style="width:150px">
+<h:form prependId="false">
+    <p:selectManyMenu id="inputYears" value="#{xmlBean.inputYears}" >
         <f:selectItem itemLabel="Select Years" itemValue="" noSelectionOption="true"/>
         <f:selectItems value="#{xmlBean.years}"/>
     </p:selectManyMenu>
-	<p:commandButton value="Download" ajax="false" action="#{xmlBean.downloadFile}">
+  	<p:commandButton id="downloadFile" value="Download" action="#{xmlBean.downloadFile}" >
 		<p:fileDownload value="#{xmlBean.file}"></p:fileDownload>
 	</p:commandButton>
-	<p:commandButton value="Display online" action="#{xmlBean.jaxbXmlFileToObject}" />
-	
-<!--  	<h:outputText value="#{xmlBean.doc}" /> -->
+	<p:commandButton id="displayJSON" update="outputJSON" value="Display Online" actionListener="#{xmlBean.displayJsonfromXML}" />
+	<p><h:outputText id="outputJSON" value="#{xmlBean.doc}" /> </p>
 </h:form>
 </body> 
 </html>

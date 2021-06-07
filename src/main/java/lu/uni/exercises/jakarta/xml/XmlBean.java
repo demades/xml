@@ -5,32 +5,22 @@ import java.io.File;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ManagedBean;
-import javax.json.bind.Jsonb;
-import javax.json.bind.JsonbBuilder;
-import javax.print.attribute.standard.OutputDeviceAssigned;
 import javax.ws.rs.core.MediaType;
-
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
-
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Unmarshaller;
-import jakarta.xml.bind.annotation.XmlAccessorType;
-import jakarta.xml.bind.annotation.XmlRootElement;
 import lu.uni.exercises.jakarta.xml.xmlComponents.CubeView;
-import lu.uni.exercises.jakarta.xml.xmlComponents.Data;
-import lu.uni.exercises.jakarta.xml.xmlComponents.Row;
-import lu.uni.exercises.jakarta.xml.xmlComponents.RowLabel;
-import lu.uni.exercises.jakarta.xml.xmlComponents.Rows;
-import jakarta.activation.*;
 
+@RequestScoped
 @ManagedBean
 public class XmlBean  {
 	@EJB
@@ -40,10 +30,29 @@ public class XmlBean  {
 //	private String Urlpath = "https://statistiques.public.lu/stat/TableViewer/download.aspx?x=";
 	private URL url;
 	private JAXBContext jaxbContext;
-	private String doc;
+	private String doc, output;
 	private CubeView cubeView;
 	private StreamedContent file;
-	private int[] years;
+	private String[] years;
+	private List<String> inputYears;
+	
+	
+
+	public String getOutput() {
+		return output;
+	}
+
+	public void setOutput(String output) {
+		this.output = output;
+	}
+
+	public List<String> getInputYears() {
+		return inputYears;
+	}
+
+	public void setInputYears(List<String> inputYears) {
+		this.inputYears = inputYears;
+	}
 
 	public StreamedContent getFile() {
 		return file;
@@ -61,40 +70,46 @@ public class XmlBean  {
 		this.doc = doc;
 	}
 
-	public int[] getYears() {
+	public String[] getYears() {
 		return years;
 	}
 
-	public void setYears(int[] years) {
+	public void setYears(String[] years) {
 		this.years = years;
 	}
 
-	public void jaxbXmlFileToObject() throws JAXBException, MalformedURLException  {
+	public void displayJsonfromXML() throws JAXBException, MalformedURLException  {
 //		url = new URL(Urlpath);
-		String path = new File("").getAbsolutePath();		
+//		String path = new File("").getAbsolutePath();		
 		File xmlFile = new File(fileName);
 		jaxbContext = JAXBContext.newInstance(CubeView.class);
 		Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 		cubeView = (CubeView) jaxbUnmarshaller.unmarshal(xmlFile);
-		doc = ejbProcess.CreateJsonFromXml(cubeView);
+		doc = ejbProcess.CreateJsonFromXml(cubeView, inputYears);
 	}
 	
-	public void downloadFile() {
+	public void downloadFile() throws MalformedURLException, JAXBException {
+		displayJsonfromXML();
     	InputStream stream = new ByteArrayInputStream(doc.getBytes()); 
         file = new DefaultStreamedContent(stream,
                 MediaType.APPLICATION_JSON,
                 "statec.json");         
 	}
 	
+	@PostConstruct
 	public void getyears() {
 		int year = Calendar.getInstance().get(Calendar.YEAR);
-		years = new int[year - 1994];
+		years = new String[year - 1994];
 		int v = 0;
 		for (int i=year; i>1994; i--) {
-			years[v] = i;
+			years[v] = String.valueOf(i);
 			v++;
-		}
-		
+		}		
+	}
+	
+	public void testOutput() {
+		System.out.println("llegando al bean");
+		this.output = "pepe";
 	}
 	
 }
