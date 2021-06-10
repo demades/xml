@@ -2,9 +2,13 @@ package lu.uni.exercises.jakarta.xml;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLDecoder;
+import java.nio.file.Path;
 import java.util.Calendar;
 import java.util.List;
 
@@ -26,15 +30,13 @@ public class XmlBean  {
 	@EJB
 	EJBProcess ejbProcess;	
 	
-	private String fileName = "statec.xml";
-//	private String Urlpath = "https://statistiques.public.lu/stat/TableViewer/download.aspx?x=";
-	private URL url;
 	private JAXBContext jaxbContext;
-	private String doc, output;
+	private String doc, output, path;
 	private CubeView cubeView;
 	private StreamedContent file;
 	private String[] years;
 	private List<String> inputYears;
+	private String fileName = "statec.xml";
 	
 	
 
@@ -78,9 +80,7 @@ public class XmlBean  {
 		this.years = years;
 	}
 
-	public void displayJsonfromXML() throws JAXBException, MalformedURLException  {
-//		url = new URL(Urlpath);
-//		String path = new File("").getAbsolutePath();		
+	public void displayJsonfromXML() throws JAXBException, IOException  {
 		File xmlFile = new File(fileName);
 		jaxbContext = JAXBContext.newInstance(CubeView.class);
 		Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
@@ -88,7 +88,7 @@ public class XmlBean  {
 		doc = ejbProcess.CreateJsonFromXml(cubeView, inputYears);
 	}
 	
-	public void downloadFile() throws MalformedURLException, JAXBException {
+	public void downloadFile() throws JAXBException, IOException {
 		displayJsonfromXML();
     	InputStream stream = new ByteArrayInputStream(doc.getBytes()); 
         file = new DefaultStreamedContent(stream,
@@ -106,10 +106,5 @@ public class XmlBean  {
 			v++;
 		}		
 	}
-	
-	public void testOutput() {
-		System.out.println("llegando al bean");
-		this.output = "pepe";
-	}
-	
+
 }

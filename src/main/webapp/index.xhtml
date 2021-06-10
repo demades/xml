@@ -14,8 +14,9 @@
         <f:selectItem itemLabel="Select Years" itemValue="" noSelectionOption="true"/>
         <f:selectItems value="#{xmlBean.years}"/>
     </p:selectManyMenu>
-  	<p:commandButton id="downloadFile" value="Download" action="#{xmlBean.downloadFile}" >
-		<p:fileDownload value="#{xmlBean.file}"></p:fileDownload>
+  	<p:commandButton id="downloadFile" value="Download" actionListener="#{xmlBean.downloadFile}"
+  			icon="pi pi-arrow-down" styleClass="p-mr-2" ajax="false">
+  		<p:fileDownload value="#{xmlBean.file}" />
 	</p:commandButton>
 	<p:commandButton id="displayJSON" update="outputJSON" value="Display Online" actionListener="#{xmlBean.displayJsonfromXML}" />
 	<p><h:outputText id="outputJSON" value="#{xmlBean.doc}" /> </p>

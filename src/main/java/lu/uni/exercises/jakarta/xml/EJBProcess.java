@@ -31,12 +31,6 @@ public class EJBProcess implements EJBProcessLocal {
 	List<JSONDocument> doc;
 	Gson gson;
 	Row[] rowList;
-	Cells cells;
-	List<C> cList;
-	C[] cs;
-	RowLabels rowLabels;
-	RowLabel rowLabel;
-	C c;
 	String result;
 	
 
