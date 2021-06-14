@@ -1,9 +1,11 @@
 package lu.uni.exercises.jakarta.xml;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -37,6 +39,7 @@ public class XmlBean  {
 	private String[] years;
 	private List<String> inputYears;
 	private String fileName = "statec.xml";
+
 	
 	
 
@@ -81,10 +84,10 @@ public class XmlBean  {
 	}
 
 	public void displayJsonfromXML() throws JAXBException, IOException  {
-		File xmlFile = new File(fileName);
+		URL resource=this.getClass().getClassLoader().getResource(fileName);
 		jaxbContext = JAXBContext.newInstance(CubeView.class);
 		Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-		cubeView = (CubeView) jaxbUnmarshaller.unmarshal(xmlFile);
+		cubeView = (CubeView) jaxbUnmarshaller.unmarshal(resource);
 		doc = ejbProcess.CreateJsonFromXml(cubeView, inputYears);
 	}
 	
